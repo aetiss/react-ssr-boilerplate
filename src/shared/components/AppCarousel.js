@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import banner from "./banner.jpg";
-import banner2 from "./banner2.jpg";
+import banner from "../../assests/images/banners/banner.jpg";
+import banner2 from "../../assests/images/banners/banner2.jpg";
 
 class AppCarousel extends Component {
   render() {

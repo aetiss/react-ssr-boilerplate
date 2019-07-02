@@ -1,4 +1,3 @@
-import News from "../news/News";
 import Home from "./home/Home";
 import collections from "./collections/collections";
 import productDetails from "./productDetails/productDetails";
@@ -17,7 +16,13 @@ const routes = [
   {
     path: "/collections/:id",
     component: collections,
-    exact: true
+    exact: true,
+    metaProps: {
+      trending: {
+        name: "title",
+        value: "Top Trending products"
+      }
+    }
   },
   {
     path: "/products/:id",

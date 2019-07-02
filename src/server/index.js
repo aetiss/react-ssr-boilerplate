@@ -6,7 +6,9 @@ import { StaticRouter, matchPath } from "react-router-dom";
 import serialize from "serialize-javascript";
 import routes from "../shared/routes";
 import App from "../shared/App";
+import { Provider } from "react-redux";
 import sourceMapSupport from "source-map-support";
+import configureStore from "../shared/configureStore";
 
 if (process.env.NODE_ENV === "development") {
   sourceMapSupport.install();
@@ -17,19 +19,28 @@ const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.get("*", (req, res, next) => {
-  const activeRoute = routes.find(route => matchPath(req.url, route));
+  var store = configureStore();
 
-  const requestInitialData = activeRoute.component.requestInitialData && activeRoute.component.requestInitialData();
+  const promises = routes.reduce((acc, route) => {
+    if (matchPath(req.url, route) && route.component && route.component.initialAction) {
+      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", store);
+      acc.push(Promise.resolve(store.dispatch(route.component.initialAction())));
+    }
+    return acc;
+  }, []);
 
-  Promise.resolve(requestInitialData)
-    .then(initialData => {
-      const context = { initialData };
-      console.log("req url", req.url);
+  Promise.all(promises)
+    .then(() => {
+      const context = {};
       const markup = renderToString(
-        <StaticRouter location={req.url} context={context}>
-          <App />
-        </StaticRouter>
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            <App />
+          </StaticRouter>
+        </Provider>
       );
+
+      const initialData = store.getState();
 
       res.send(`
       <!DOCTYPE html>

@@ -11,7 +11,7 @@ class TrendingProducts extends Component {
         <div className="row d-flex justify-content-between mx-1">
           {this.props.trendingProducts.map((item, index) => {
             return (
-              <Link to={`/products/${item.id}`} className="card" key={item.name} style={{ width: "18rem" }}>
+              <Link to={`/products/${item.id}`} className="card" key={item.name} style={{ width: "15rem" }}>
                 <img className="card-img-top" src={item.image_url} alt="Card image cap" />
                 <div className="card-body">
                   <p className="card-text">{item.description}</p>

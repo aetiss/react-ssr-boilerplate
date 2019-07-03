@@ -7,6 +7,8 @@ import configureStore from "../shared/configureStore";
 
 const store = configureStore(window.__initialData__);
 
+delete window.__initialData__;
+
 render(
   <Provider store={store}>
     <BrowserRouter>

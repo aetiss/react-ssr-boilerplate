@@ -5,7 +5,7 @@ import AppFooter from "../../components/AppFooter";
 import TrendingProducts from "../../components/TrendingProducts";
 import Collections from "../../components/Collections";
 import { connect } from "react-redux";
-import { fetchTrendingProducts, fetchCollections, fetchInitialData } from "../../actions";
+import { fetchInitialData } from "../../actions";
 
 // import "./Home.css";
 

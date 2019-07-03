@@ -1,6 +1,6 @@
-import Home from "./home/Home";
-import collections from "./collections/collections";
-import productDetails from "./productDetails/productDetails";
+import Home from "./pages/home/Home";
+import collections from "./pages/collections/collections";
+import productDetails from "./pages/productDetails/productDetails";
 
 const routes = [
   // {

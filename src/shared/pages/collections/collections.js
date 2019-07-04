@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AppHeader from "../../components/AppHeader";
 import { Link } from "react-router-dom";
 import products from "../../Data/products";
+import { Helmet } from "react-helmet";
 
 class collections extends Component {
   constructor() {
@@ -12,8 +13,11 @@ class collections extends Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>{`RevisionPros SSR POC - Collections`}</title>
+          <meta property="og:title" content="Collections Page" />
+        </Helmet>
         <AppHeader />
-        {/* <TrendingProducts /> */}
         <div className="row">
           <div className="col-3 d-flex justify-content-center" style={{ borderRight: "1px solid #333" }}>
             <h4>Filters</h4>

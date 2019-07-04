@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const autoprefixer = require("autoprefixer");
+const dotenv = require("dotenv-webpack");
+const WorkboxPlugin = require("workbox-webpack-plugin");
 
 const browserConfig = {
   entry: "./src/browser/index.js",
@@ -50,6 +52,12 @@ const browserConfig = {
       banner: "__isBrowser__ = true;",
       raw: true,
       include: /\.js$/
+    }),
+    new dotenv(),
+    new WorkboxPlugin.GenerateSW({
+      swDest: "./public/service-worker.js",
+      clientsClaim: true,
+      skipWaiting: true
     })
   ]
 };
@@ -95,7 +103,8 @@ const serverConfig = {
       banner: "__isBrowser__ = false;",
       raw: true,
       include: /\.js$/
-    })
+    }),
+    new dotenv()
   ]
 };
 

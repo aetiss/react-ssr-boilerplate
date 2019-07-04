@@ -6,6 +6,7 @@ import TrendingProducts from "../../components/TrendingProducts";
 import Collections from "../../components/Collections";
 import { connect } from "react-redux";
 import { fetchInitialData } from "../../actions";
+import { Helmet } from "react-helmet";
 
 // import "./Home.css";
 
@@ -31,12 +32,19 @@ class Home extends Component {
   render() {
     console.log("trending Products::", this.props.trendingProducts);
     return (
-      <div className="container-fluid">
-        <AppHeader />
-        <AppCarousel />
-        <TrendingProducts trendingProducts={this.props.trendingProducts} />
-        <Collections collections={this.props.collections} />
-        <AppFooter />
+      <div>
+        <Helmet>
+          <title>{`RevisionPros SSR POC`}</title>
+          <meta property="og:title" content="Home Page" />
+        </Helmet>
+
+        <div className="container-fluid">
+          <AppHeader />
+          <AppCarousel />
+          <TrendingProducts trendingProducts={this.props.trendingProducts} />
+          <Collections collections={this.props.collections} />
+          <AppFooter />
+        </div>
       </div>
     );
   }

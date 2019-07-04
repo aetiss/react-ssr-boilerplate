@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "../shared/App";
 import configureStore from "../shared/configureStore";
+import * as serviceWorker from "../../serviceWorker";
 
 const store = configureStore(window.__initialData__);
 
@@ -17,3 +18,5 @@ render(
   </Provider>,
   document.getElementById("root")
 );
+
+// serviceWorker.register();

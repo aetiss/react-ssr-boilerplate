@@ -9,6 +9,7 @@ import App from "../shared/App";
 import { Provider } from "react-redux";
 import sourceMapSupport from "source-map-support";
 import configureStore from "../shared/configureStore";
+import { Helmet } from "react-helmet";
 
 if (process.env.NODE_ENV === "development") {
   sourceMapSupport.install();
@@ -23,7 +24,6 @@ app.get("*", (req, res, next) => {
 
   const promises = routes.reduce((acc, route) => {
     if (matchPath(req.url, route) && route.component && route.component.initialAction) {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", store);
       acc.push(Promise.resolve(store.dispatch(route.component.initialAction())));
     }
     return acc;
@@ -42,11 +42,14 @@ app.get("*", (req, res, next) => {
 
       const initialData = store.getState();
 
+      const helmet = Helmet.renderStatic();
+
       res.send(`
       <!DOCTYPE html>
       <html>
         <head>
-          <title>VisionPros</title>
+          ${helmet.title.toString()}
+          ${helmet.meta.toString()}
           <link rel="stylesheet" href="/css/main.css">
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
           <script src="/bundle.js" defer></script>
